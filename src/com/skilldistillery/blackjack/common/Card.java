@@ -13,14 +13,20 @@ public class Card {
 	public int getValue() {
 		return rank.getValue();
 	}
+	
 
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append(rank);
-		builder.append(" of ");
-		builder.append(suit);
-		return builder.toString();
-	}
+@Override
+public String toString() {
+	return rank + " of " + suit;
+}
+	
+//	public String toString() {
+//		StringBuilder builder = new StringBuilder();
+//		builder.append(rank);
+//		builder.append(" of ");
+//		builder.append(suit);
+//		return builder.toString();
+//	}
 
 	public boolean isAce() {
 		// TODO Auto-generated method stub
@@ -64,6 +70,7 @@ public class Card {
 		if (suit != other.suit)
 			return false;
 		return true;
-	}
+
+}
 
 }

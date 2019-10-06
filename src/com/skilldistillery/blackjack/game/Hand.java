@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.skilldistillery.blackjack.common.Card;
-import com.skilldistillery.blackjack.common.Deck;
 
 public abstract class Hand {
 
@@ -31,7 +30,7 @@ public abstract class Hand {
 	}
 
 	public String toString() {
-		return "Hand is " + cards;
+		return "hand " + cards;
 	}
 
 	public List<Card> getCards() {

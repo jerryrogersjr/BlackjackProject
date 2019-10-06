@@ -16,4 +16,5 @@ public class Dealer extends Player {
 	public void setDeck(Deck deck) {
 		deck = dealerDeck;
 	}
+	
 }

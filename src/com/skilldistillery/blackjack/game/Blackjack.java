@@ -1,7 +1,5 @@
 package com.skilldistillery.blackjack.game;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 import com.skilldistillery.blackjack.common.Deck;
@@ -23,7 +21,6 @@ public class Blackjack {
 	}
 
 	public void launchGame(Blackjack bj) {
-
 		System.out.println("Welcome to Blackjack\n");
 		System.out.println("You have: $ " + money);
 		bj.betAmount();
@@ -53,8 +50,10 @@ public class Blackjack {
 
 	public void player(Blackjack bj) {
 
+		// need to work on money minus bet, etc.
 		if (playerTotal < 21) {
 			System.out.println();
+			System.out.println("You have a total of $ " + money);
 			System.out.println("You have: " + player.getHand().getHandValue() + " " + player.getHand());
 			System.out.println("Do you want to hit? (y or n)");
 			String hitResponse = kb.next();
@@ -72,16 +71,29 @@ public class Blackjack {
 	int dealerTotal = dealer.getHand().getHandValue();
 
 	public void dealer(Blackjack bj) {
-		while (dealerTotal < 17 && playerTotal < 21) {
+		while (true) {
+
+//			if (dealerTotal < 17 && playerTotal < 21)
 			System.out.println("Dealer showing " + dealer.getHand());
 			dealer.addCard(dealer.dealerDeck.dealCard());
-			System.out.println("Dealer gets ");
-			System.out.println(dealer.getHand());
 			System.out.println();
-			break;
-		}
-		System.out.println();
+			System.out.println("Dealer now has " + dealer.getHand().getHandValue() + " " + dealer.getHand());
+			System.out.println();
+			if (dealerTotal >= 17) {
+				break;
+			}
 
+			if (dealerTotal > playerTotal) {
+				System.out.println("House Wins");
+				System.exit(0);
+			}
+			if (dealerTotal > 21) {
+				System.out.println("Dealer Busts, You've won this round");
+				System.exit(0);
+			}
+			if (dealerTotal < 17 && playerTotal < 21)
+				dealer.addCard(dealer.dealerDeck.dealCard());
+		}
 	}
 
 	private int winCheck() {
@@ -107,7 +119,7 @@ public class Blackjack {
 
 		if (hitResponse.indexOf("Y") == 0 || hitResponse.indexOf("y") == 0) {
 			player.addCard(dealer.dealerDeck.dealCard());
-
+			bj.player(bj);
 		} else if (hitResponse.indexOf("N") == 0 || hitResponse.indexOf("n") == 0) {
 			dealer(bj);
 		}
@@ -144,7 +156,9 @@ public class Blackjack {
 
 	public int betAmount() {
 		System.out.println("How much do you want to bet?");
-		int bet = Math.abs(kb.nextInt());
+//		int bet = Math.abs(kb.nextInt());
+		int bet = kb.nextInt();
+
 		while (bet > money || bet < 10) {
 			if (bet < 10) {
 				System.out.println("The minimum bet is $10");

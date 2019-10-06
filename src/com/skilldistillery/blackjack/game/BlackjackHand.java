@@ -25,26 +25,26 @@ public class BlackjackHand extends Hand {
 	public String toString() {
 		return super.toString();
 	}
-
+	// eventually bring code into isBlackjack method
 	public boolean isBlackjack() {
-		System.out.println("Blackjack!!!!");
+		System.out.println("********** BLACKJACK!!!! **********");
 		System.out.println();
 		System.exit(0);
 		
 		return true;
 	}
-
+	// eventually bring code into isBust method
 	public boolean isBust() {
-		System.out.println("Busted Buster");
+		System.out.println("********** BUSTED BUSTER **********");
 		System.exit(0);
 		return true;
 	}
-
+	// isHard for future
 	public boolean isHard() {
 		System.out.println("Hard Ace 11");
 		return true;
 	}
-
+	// isSoft for future
 	public boolean isSoft() {
 		System.out.println("Soft Ace 1");
 		return true;
