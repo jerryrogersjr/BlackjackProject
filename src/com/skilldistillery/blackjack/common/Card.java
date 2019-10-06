@@ -1,18 +1,18 @@
 package com.skilldistillery.blackjack.common;
 
-
 public class Card {
-  private Rank rank;
-  private Suit suit;
-  
-  public Card(Rank rank, Suit suit) {
-    this.rank = rank;
-    this.suit = suit;
-  }
-  
-  public int getValue() { 
-	  return this.rank.getValue();
-  }
+	private Rank rank;
+	private Suit suit;
+
+	public Card(Rank rank, Suit suit) {
+		this.rank = rank;
+		this.suit = suit;
+//		toString();
+	}
+
+	public int getValue() {
+		return this.rank.getValue();
+	}
 
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -22,28 +22,48 @@ public class Card {
 		return builder.toString();
 	}
 
-	  public int hashCode() {
-    final int prime = 31;
-    int result = 1;
-    result = prime * result + ((rank == null) ? 0 : rank.hashCode());
-    result = prime * result + ((suit == null) ? 0 : suit.hashCode());
-    return result;
-  }
+	public boolean isAce() {
+		// TODO Auto-generated method stub
+		return rank.ACE != null;
+	}
 
-  public boolean equals(Object obj) {
-    if (this == obj)
-      return true;
-    if (obj == null)
-      return false;
-    if (getClass() != obj.getClass())
-      return false;
-    Card other = (Card) obj;
-    if (rank != other.rank)
-      return false;
-    if (suit != other.suit)
-      return false;
-    return true;
-  }
+	public Rank getRank() {
+		return rank;
+	}
 
-  
+	public void setRank(Rank rank) {
+		this.rank = rank;
+	}
+
+	public Suit getSuit() {
+		return suit;
+	}
+
+	public void setSuit(Suit suit) {
+		this.suit = suit;
+	}
+
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((rank == null) ? 0 : rank.hashCode());
+		result = prime * result + ((suit == null) ? 0 : suit.hashCode());
+		return result;
+	}
+
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Card other = (Card) obj;
+		if (rank != other.rank)
+			return false;
+		if (suit != other.suit)
+			return false;
+		return true;
+	}
+
 }

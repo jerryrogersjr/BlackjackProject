@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import com.skilldistillery.blackjack.game.Hand;
+
 public class Deck {
 	
   private List<Card> cards;
@@ -35,8 +37,11 @@ public class Deck {
     Collections.shuffle(cards);
   }
   
-  public Card dealCard() {
-    return cards.remove(0);
+  public int dealCard() {
+	return 0;
+//	  return this.cards.remove(0);
+    
   }
+  
   
 }
