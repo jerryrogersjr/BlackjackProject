@@ -7,11 +7,11 @@ public class Card {
 	public Card(Rank rank, Suit suit) {
 		this.rank = rank;
 		this.suit = suit;
-//		toString();
+		toString();
 	}
 
 	public int getValue() {
-		return this.rank.getValue();
+		return rank.getValue();
 	}
 
 	public String toString() {

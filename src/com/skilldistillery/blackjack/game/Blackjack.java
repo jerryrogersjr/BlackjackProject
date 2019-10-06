@@ -6,59 +6,63 @@ import java.util.Scanner;
 
 import com.skilldistillery.blackjack.common.Card;
 import com.skilldistillery.blackjack.common.Deck;
+import com.skilldistillery.blackjack.common.Rank;
+import com.skilldistillery.blackjack.common.Suit;
 
 public class Blackjack {
 	public static final int INITIAL_MONEY = 100; // fixed amount
+	private static int money = INITIAL_MONEY;
+	public static Scanner kb = new Scanner(System.in);
+	List<Card> dealersHand = new ArrayList<>();
+	List<Card> playersHand = new ArrayList<>();
+	private Rank rank;
+	private Suit suit;
+	static Deck deck = new Deck();
+	Card c = new Card(rank, suit);
+
+	Dealer dealer = new Dealer();
+	Player player = new Player();
 
 	public static void main(String[] args) {
-		List<Card> playersHand = new ArrayList<>();
-		List<Card> dealersHand = new ArrayList<>();
-		Scanner kb = new Scanner(System.in);
-		Deck deck = new Deck(); // this will call methods from the Deck class
-		Blackjack bj = new Blackjack(); // this will call non-static methods from this class
-		int money = INITIAL_MONEY;
-		boolean play = true;
-	
-		deck.createDeck(); 
-		bj.launchGame(money, deck, bj, kb);
-		bj.player(deck, kb, playersHand);
-//		int roundBet = bj.betAmount(kb, money);
-		bj.dealer(bj, deck, kb, dealersHand, playersHand, money, play);
-		
+		Blackjack bj = new Blackjack();
+		bj.launchGame(bj);
 	}
 
-	public void launchGame(int money, Deck deck, Blackjack bj, Scanner kb) {
-//		int playerTotal = 0;
-//		int dealerTotal = 0;
+	public void launchGame(Blackjack bj) {
+
 		System.out.println("Welcome to Blackjack\n");
 		System.out.println("You have: $ " + money);
-		bj.betAmount(kb, money);
+		bj.betAmount();
+		dealer.Shuffle();
+		for (int i = 0; i < 2; i++) {
+			player.addCard(dealer.dealerDeck.dealCard());
+		}
+		System.out.println("Player Hand");
+		System.out.println(player.getHand());
+		System.out.println(player.getHand().getHandValue());
+		System.out.println();
 
-		bj.initialDeal(deck);
-	}
-
-	public void initialDeal(Deck deck) {
-		System.out.println("First Card ");
-		playerTotal += deck.dealCard();
-		
-		System.out.println("Second Card ");
-		playerTotal += deck.dealCard();
-		
 		System.out.println("Dealer Showing ");
-		dealerTotal += deck.dealCard();
+		System.out.println(dealer.getHand());
+		dealer.addCard(dealer.dealerDeck.dealCard());
 		System.out.println();
 		
+		bj.player();
+		bj.dealer();
+
 	}
 
-	int  playerTotal = 0;
-	public void player(Deck deck, Scanner kb, List<Card> playersHand) {
+	int playerTotal = player.getHand().getHandValue();
+
+	public void player() {
 		boolean anotherCard = true;
 		while (playerTotal < 21 && anotherCard) {
 			anotherCard = hit(kb);
+			
 			if (playerTotal > 21 || playerTotal == 21 || !anotherCard) {
 				break;
 			} else {
-				playerTotal = deck.dealCard();
+				deck.dealCard();
 			}
 			for (int i = 0; i < playersHand.size(); i++) {
 				if (playersHand.get(i).isAce() && playerTotal > 21) {
@@ -69,10 +73,11 @@ public class Blackjack {
 	}
 
 	int dealerTotal = 0;
-	public void dealer(Blackjack bj, Deck deck, Scanner kb, List<Card> playersHand, List<Card> dealersHand, int money, boolean play) {
+
+	public void dealer() {
 		while (dealerTotal < 17 && playerTotal < 21) {
 			System.out.println("Dealer showing " + dealerTotal);
-			Card dealersCard = dealersHand.remove(0);
+			Card dealersCard = null;
 
 			System.out.println("Dealer gets ");
 			System.out.println();
@@ -87,10 +92,12 @@ public class Blackjack {
 		}
 		System.out.println();
 //		money += winCheck(playerTotal, dealerTotal);
-		play = bj.playAgain(kb, money);
+		boolean play = true;
+//		play = bj.playAgain();
+		playAgain();
 	}
 
-	private int winCheck(int playerTotal2, int dealerTotal2, int roundBet) {
+	private int winCheck() {
 		return 0;
 	}
 
@@ -98,6 +105,7 @@ public class Blackjack {
 		boolean response = false;
 		System.out.println();
 		System.out.println("You have: ");
+		System.out.println(player.getHand().getHandValue());
 		System.out.println("Do you want to hit? (y or n)");
 		String hitResponse = kb.next();
 
@@ -113,7 +121,7 @@ public class Blackjack {
 
 	}
 
-	public boolean playAgain(Scanner kb, int money) {
+	public boolean playAgain() {
 		boolean response;
 		System.out.println("You have: $ " + money);
 		if (money == 0) {
@@ -141,7 +149,7 @@ public class Blackjack {
 		return response;
 	}
 
-	public int betAmount(Scanner kb, int money) {
+	public int betAmount() {
 		System.out.println("How much do you want to bet?");
 		int bet = Math.abs(kb.nextInt());
 		while (bet > money || bet < 10) {
@@ -157,6 +165,20 @@ public class Blackjack {
 			bet = kb.nextInt();
 		}
 		return bet;
+	}
+
+	public void drawPlayer(Dealer dealer, Player player) {
+		dealer.Shuffle();
+		for (int i = 0; i < 2; i++) {
+			player.addCard(dealer.dealerDeck.dealCard());
+		}
+	}
+
+	public void drawDealer(Dealer dealer, Player player) {
+		dealer.Shuffle();
+		for (int i = 0; i < 1; i++) {
+			player.addCard(dealer.dealerDeck.dealCard());
+		}
 	}
 
 }
