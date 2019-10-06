@@ -111,6 +111,7 @@ public class Blackjack {
 
 		if (hitResponse.indexOf("Y") == 0 || hitResponse.indexOf("y") == 0) {
 			response = true;
+			player.addCard(dealer.dealerDeck.dealCard());
 		} else if (hitResponse.indexOf("N") == 0 || hitResponse.indexOf("n") == 0) {
 			response = false;
 		} else {
@@ -167,18 +168,18 @@ public class Blackjack {
 		return bet;
 	}
 
-	public void drawPlayer(Dealer dealer, Player player) {
-		dealer.Shuffle();
-		for (int i = 0; i < 2; i++) {
-			player.addCard(dealer.dealerDeck.dealCard());
-		}
-	}
-
-	public void drawDealer(Dealer dealer, Player player) {
-		dealer.Shuffle();
-		for (int i = 0; i < 1; i++) {
-			player.addCard(dealer.dealerDeck.dealCard());
-		}
-	}
+//	public void drawPlayer(Dealer dealer, Player player) {
+//		dealer.Shuffle();
+//		for (int i = 0; i < 2; i++) {
+//			player.addCard(dealer.dealerDeck.dealCard());
+//		}
+//	}
+//
+//	public void drawDealer(Dealer dealer, Player player) {
+//		dealer.Shuffle();
+//		for (int i = 0; i < 1; i++) {
+//			player.addCard(dealer.dealerDeck.dealCard());
+//		}
+//	}
 
 }
