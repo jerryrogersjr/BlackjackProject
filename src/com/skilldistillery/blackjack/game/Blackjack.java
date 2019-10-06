@@ -4,10 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import com.skilldistillery.blackjack.common.Card;
 import com.skilldistillery.blackjack.common.Deck;
-import com.skilldistillery.blackjack.common.Rank;
-import com.skilldistillery.blackjack.common.Suit;
 
 public class Blackjack {
 	public static final int INITIAL_MONEY = 100; // fixed amount
@@ -39,33 +36,36 @@ public class Blackjack {
 		System.out.println(player.getHand().getHandValue());
 		System.out.println();
 
+		if (playerTotal == 21) {
+			bh.isBlackjack();
+		}
+
 		System.out.println("Dealer Showing ");
 		System.out.println(dealer.getHand());
 		dealer.addCard(dealer.dealerDeck.dealCard());
 		System.out.println();
 
 		bj.player(bj);
-		bj.dealer(bj);
 
 	}
 
 	int playerTotal = player.getHand().getHandValue();
 
 	public void player(Blackjack bj) {
-//		boolean anotherCard = true;
-		while (playerTotal < 21) {
-			hit(kb, bj);
-			if (playerTotal > 21) {
-				bh.isBust();
-			} else if (playerTotal == 21) {
-				bh.isBlackjack();
-			} else if (playerTotal > 21 || playerTotal == 21) {
-				break;
-			} else {
+
+		if (playerTotal < 21) {
+			System.out.println();
+			System.out.println("You have: " + player.getHand().getHandValue() + " " + player.getHand());
+			System.out.println("Do you want to hit? (y or n)");
+			String hitResponse = kb.next();
+			if (hitResponse.indexOf("N") == 0 || hitResponse.indexOf("n") == 0) {
+				dealer(bj);
+			}
+			if (hitResponse.indexOf("Y") == 0 || hitResponse.indexOf("y") == 0) {
 				player.addCard(dealer.dealerDeck.dealCard());
+				bj.hit(kb, bj);
 
 			}
-
 		}
 	}
 
@@ -94,17 +94,22 @@ public class Blackjack {
 	public void hit(Scanner kb, Blackjack bj) {
 
 		System.out.println();
-		System.out.println("You have: ");
+		System.out.println("You have: " + player.getHand().getHandValue() + " " + player.getHand());
+		if (player.getHand().getHandValue() > 21) {
+			System.out.println();
+			bh.isBust();
+		} else if (player.getHand().getHandValue() == 21) {
+			System.out.println();
+			bh.isBlackjack();
+		}
 		System.out.println("Do you want to hit? (y or n)");
 		String hitResponse = kb.next();
 
 		if (hitResponse.indexOf("Y") == 0 || hitResponse.indexOf("y") == 0) {
 			player.addCard(dealer.dealerDeck.dealCard());
+
 		} else if (hitResponse.indexOf("N") == 0 || hitResponse.indexOf("n") == 0) {
 			dealer(bj);
-		} else {
-			System.out.println();
-
 		}
 
 	}
