@@ -28,11 +28,15 @@ public class BlackjackHand extends Hand {
 
 	public boolean isBlackjack() {
 		System.out.println("Blackjack!!!!");
+		System.out.println();
+		System.exit(0);
+		
 		return true;
 	}
 
 	public boolean isBust() {
 		System.out.println("Busted Buster");
+		System.exit(0);
 		return true;
 	}
 

@@ -13,15 +13,12 @@ public class Blackjack {
 	public static final int INITIAL_MONEY = 100; // fixed amount
 	private static int money = INITIAL_MONEY;
 	public static Scanner kb = new Scanner(System.in);
-	List<Card> dealersHand = new ArrayList<>();
-	List<Card> playersHand = new ArrayList<>();
-	private Rank rank;
-	private Suit suit;
-	static Deck deck = new Deck();
-	Card c = new Card(rank, suit);
-
+//	List<Card> dealersHand = new ArrayList<>();
+//	List<Card> playersHand = new ArrayList<>();
+	Deck deck = new Deck();
 	Dealer dealer = new Dealer();
 	Player player = new Player();
+	BlackjackHand bh = new BlackjackHand();
 
 	public static void main(String[] args) {
 		Blackjack bj = new Blackjack();
@@ -46,79 +43,69 @@ public class Blackjack {
 		System.out.println(dealer.getHand());
 		dealer.addCard(dealer.dealerDeck.dealCard());
 		System.out.println();
-		
-		bj.player();
-		bj.dealer();
+
+		bj.player(bj);
+		bj.dealer(bj);
 
 	}
 
 	int playerTotal = player.getHand().getHandValue();
 
-	public void player() {
-		boolean anotherCard = true;
-		while (playerTotal < 21 && anotherCard) {
-			anotherCard = hit(kb);
-			
-			if (playerTotal > 21 || playerTotal == 21 || !anotherCard) {
+	public void player(Blackjack bj) {
+//		boolean anotherCard = true;
+		while (playerTotal < 21) {
+			hit(kb, bj);
+			if (playerTotal > 21) {
+				bh.isBust();
+			} else if (playerTotal == 21) {
+				bh.isBlackjack();
+			} else if (playerTotal > 21 || playerTotal == 21) {
 				break;
 			} else {
-				deck.dealCard();
+				player.addCard(dealer.dealerDeck.dealCard());
+
 			}
-			for (int i = 0; i < playersHand.size(); i++) {
-				if (playersHand.get(i).isAce() && playerTotal > 21) {
-					playerTotal -= 10;
-				}
-			}
+
 		}
 	}
 
-	int dealerTotal = 0;
+	int dealerTotal = dealer.getHand().getHandValue();
 
-	public void dealer() {
+	public void dealer(Blackjack bj) {
 		while (dealerTotal < 17 && playerTotal < 21) {
-			System.out.println("Dealer showing " + dealerTotal);
-			Card dealersCard = null;
-
+			System.out.println("Dealer showing " + dealer.getHand());
+			dealer.addCard(dealer.dealerDeck.dealCard());
 			System.out.println("Dealer gets ");
+			System.out.println(dealer.getHand());
 			System.out.println();
-			// show here what the dealer got
-			dealerTotal += dealersCard.getValue();
-			dealersHand.add(dealersCard);
-			for (int i = 0; i < playersHand.size(); i++) {
-				if (playersHand.get(i).isAce() && playerTotal > 21) {
-					playerTotal -= 10;
-				}
-			}
+			break;
 		}
 		System.out.println();
-//		money += winCheck(playerTotal, dealerTotal);
-		boolean play = true;
-//		play = bj.playAgain();
-		playAgain();
+
 	}
 
 	private int winCheck() {
-		return 0;
+
+		int winLose = 0;
+
+		return winLose;
 	}
 
-	public boolean hit(Scanner kb) {
-		boolean response = false;
+	public void hit(Scanner kb, Blackjack bj) {
+
 		System.out.println();
 		System.out.println("You have: ");
-		System.out.println(player.getHand().getHandValue());
 		System.out.println("Do you want to hit? (y or n)");
 		String hitResponse = kb.next();
 
 		if (hitResponse.indexOf("Y") == 0 || hitResponse.indexOf("y") == 0) {
-			response = true;
 			player.addCard(dealer.dealerDeck.dealCard());
 		} else if (hitResponse.indexOf("N") == 0 || hitResponse.indexOf("n") == 0) {
-			response = false;
+			dealer(bj);
 		} else {
 			System.out.println();
-			response = false;
+
 		}
-		return response;
 
 	}
 
@@ -167,19 +154,5 @@ public class Blackjack {
 		}
 		return bet;
 	}
-
-//	public void drawPlayer(Dealer dealer, Player player) {
-//		dealer.Shuffle();
-//		for (int i = 0; i < 2; i++) {
-//			player.addCard(dealer.dealerDeck.dealCard());
-//		}
-//	}
-//
-//	public void drawDealer(Dealer dealer, Player player) {
-//		dealer.Shuffle();
-//		for (int i = 0; i < 1; i++) {
-//			player.addCard(dealer.dealerDeck.dealCard());
-//		}
-//	}
 
 }
