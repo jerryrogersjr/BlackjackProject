@@ -2,8 +2,8 @@
 
 This is my fourth end of week project with Skill Distillery. The program will
 welcome you and ask what you'd like to bet with a starting amount of $100.
-NOTE: At this moment, I have not implemented the money calculations just yet.
-      this will be updated in the near future. Also, the Ace is fixed at '11'
+NOTE: At this moment, I have not implemented the money calculations.
+      This will be updated in the near future. Also, the Ace is fixed at '11'
       for the moment. This will also be given the chance to be 'soft' or 'hard'
       ace in the near future.
 
@@ -80,13 +80,13 @@ Use conditionals to create game logic.
 ### Lessons Learned
 
 Again, I feel like I'm definitely learning Java the hard way. I wish I could give
-a specific right now but I can't. I started the code and got my biggest challenge
-was working with dealing the hands with cards, value, etc. Once this was obtain,
-I ended up with a lot of extra code, so as I went along I cleaned up and streamlined.
+a specific right now but I can't. I started the code and my biggest challenge
+was working with dealing the hands of cards with value, etc. OO stuff, basiclally.
+Once this was obtain, I ended up with a lot of extra code, so as I went along I cleaned up and streamlined.
 Then it got down to the Dealer and Player functioning properly. Mostly the dealer.
 I'll say, this was a lot of practice at java. I had to work hard with lots of
 time, but forward movement is underway.
-
+s
 ### Project Requirements
 
 The program must NOT be contained in one procedural main(). You MUST design a OO class structure.
