@@ -51,10 +51,12 @@ public class Blackjack {
 	public void player(Blackjack bj) {
 
 		// need to work on money minus bet, etc.
-		if (playerTotal < 21) {
+		while (playerTotal < 21) {
 			System.out.println();
 			System.out.println("You have a total of $ " + money);
 			System.out.println("You have: " + player.getHand().getHandValue() + " " + player.getHand());
+			player.getHand().getHandValue();
+			winCheck(bj);
 			System.out.println("Do you want to hit? (y or n)");
 			String hitResponse = kb.next();
 			if (hitResponse.indexOf("N") == 0 || hitResponse.indexOf("n") == 0) {
@@ -71,36 +73,60 @@ public class Blackjack {
 	int dealerTotal = dealer.getHand().getHandValue();
 
 	public void dealer(Blackjack bj) {
+//		while (dealerTotal < 17 && playerTotal < 21) {
 		while (true) {
+			if (dealer.getHand().getHandValue() < 17) {
 
-//			if (dealerTotal < 17 && playerTotal < 21)
-			System.out.println("Dealer showing " + dealer.getHand());
-			dealer.addCard(dealer.dealerDeck.dealCard());
-			System.out.println();
-			System.out.println("Dealer now has " + dealer.getHand().getHandValue() + " " + dealer.getHand());
-			System.out.println();
-			if (dealerTotal >= 17) {
-				break;
-			}
-
-			if (dealerTotal > playerTotal) {
-				System.out.println("House Wins");
-				System.exit(0);
-			}
-			if (dealerTotal > 21) {
-				System.out.println("Dealer Busts, You've won this round");
-				System.exit(0);
-			}
-			if (dealerTotal < 17 && playerTotal < 21)
+				System.out.println("Dealer showing " + dealer.getHand());
 				dealer.addCard(dealer.dealerDeck.dealCard());
+				System.out.println();
+				System.out.println("Dealer now has " + dealer.getHand().getHandValue() + " " + dealer.getHand());
+				System.out.println();
+				winCheck(bj);
+				dealer.getHand().getHandValue();
+				if (dealer.getHand().getHandValue() >= 17) {
+					winCheck(bj);
+					if (dealer.getHand().getHandValue() > 21) {
+						System.out.println("Dealer has " + dealer.getHand().getHandValue());
+						System.out.println("House busts, you Win with " + money);
+						System.exit(0);
+
+						if (dealer.getHand().getHandValue() > 21) {
+							System.out.println("Dealer has " + dealer.getHand().getHandValue());
+							System.out.println("House busts, you Win with " + money);
+							System.exit(0);
+
+							if (dealer.getHand().getHandValue() > 17 && dealerTotal > playerTotal && dealer.getHand().getHandValue() >= 21) {
+								System.out.println("House Wins! You lose " + money);
+								System.exit(0);
+								
+								if (dealer.getHand().getHandValue() >= 17) {
+									winCheck(bj);
+									break;
+								}
+							}
+						}
+					}
+				}
+			}
 		}
 	}
 
-	private int winCheck() {
+	public void winCheck(Blackjack bj) {
 
-		int winLose = 0;
+		if (dealer.getHand().getHandValue() > 17 && dealer.getHand().getHandValue() > player.getHand().getHandValue()) {
+			System.out.println("House Wins!");
+			System.exit(0);
+		}
+		if (dealer.getHand().getHandValue() > 17 && dealer.getHand().getHandValue() < player.getHand().getHandValue()) {
+			System.out.println("You Win");
+			System.exit(0);
+		}
+		if (dealer.getHand().getHandValue() == player.getHand().getHandValue()) {
+			System.out.println("You and the Dealer tied. This hand was a wash because I'm not at the next step of code yet, sorry!");
+			System.exit(0);
+		}
 
-		return winLose;
 	}
 
 	public void hit(Scanner kb, Blackjack bj) {
@@ -109,49 +135,48 @@ public class Blackjack {
 		System.out.println("You have: " + player.getHand().getHandValue() + " " + player.getHand());
 		if (player.getHand().getHandValue() > 21) {
 			System.out.println();
-			bh.isBust();
-		} else if (player.getHand().getHandValue() == 21) {
-			System.out.println();
-			bh.isBlackjack();
-		}
-		System.out.println("Do you want to hit? (y or n)");
-		String hitResponse = kb.next();
+			System.out.println(bh.isBust());
+			if (player.getHand().getHandValue() == 21) {
+				System.out.println();
+				System.out.println(bh.isBlackjack());
+				
+			}
+			System.out.println("Do you want to hit? (y or n)");
+			String hitResponse = kb.next();
 
-		if (hitResponse.indexOf("Y") == 0 || hitResponse.indexOf("y") == 0) {
-			player.addCard(dealer.dealerDeck.dealCard());
-			bj.player(bj);
-		} else if (hitResponse.indexOf("N") == 0 || hitResponse.indexOf("n") == 0) {
-			dealer(bj);
+			if (hitResponse.indexOf("Y") == 0 || hitResponse.indexOf("y") == 0) {
+				player.addCard(dealer.dealerDeck.dealCard());
+				winCheck(bj);
+				bj.player(bj);
+			} else if (hitResponse.indexOf("N") == 0 || hitResponse.indexOf("n") == 0) {
+				dealer(bj);
+			}
 		}
-
 	}
 
-	public boolean playAgain() {
-		boolean response;
+	public void playAgain(Blackjack bj) {
 		System.out.println("You have: $ " + money);
 		if (money == 0) {
 			System.out.println("You're out of cash. House wins");
-			response = false;
-			return response;
+			System.exit(0);
 		}
 		System.out.println("Would you like to play again?");
 		String response2 = kb.next();
 		if (response2.indexOf("Y") == 0 || response2.indexOf("y") == 0) {
-			response = true;
-			return response;
+			bj.launchGame(bj);
 		} else if (response2.indexOf("N") == 0 || response2.indexOf("n") == 0) {
-			response = false;
+			System.out.println("Goodbye");
 			if (money > 100) {
 				System.out.println("You've won $ " + (money - 100));
 			} else {
 				System.out.println("You lost a total of $ " + (100 - money));
-				return response;
+				System.exit(0);
 			}
 		} else {
-			System.out.println();
-			response = false;
+			System.err.println("Wrong Input, Try Again");
+			System.exit(0);
 		}
-		return response;
+
 	}
 
 	public int betAmount() {
