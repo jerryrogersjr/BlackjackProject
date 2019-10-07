@@ -64,6 +64,9 @@ public class Blackjack {
 			}
 			if (hitResponse.indexOf("Y") == 0 || hitResponse.indexOf("y") == 0) {
 				player.addCard(dealer.dealerDeck.dealCard());
+				if (player.getHand().getHandValue() == 21) {
+					bh.isBlackjack();
+				}
 				bj.hit(kb, bj);
 
 			}
@@ -83,38 +86,15 @@ public class Blackjack {
 				System.out.println("Dealer now has " + dealer.getHand().getHandValue() + " " + dealer.getHand());
 				System.out.println();
 				winCheck(bj);
-				dealer.getHand().getHandValue();
-				if (dealer.getHand().getHandValue() >= 17) {
-					winCheck(bj);
-					if (dealer.getHand().getHandValue() > 21) {
-						System.out.println("Dealer has " + dealer.getHand().getHandValue());
-						System.out.println("House busts, you Win with " + money);
-						System.exit(0);
 
-						if (dealer.getHand().getHandValue() > 21) {
-							System.out.println("Dealer has " + dealer.getHand().getHandValue());
-							System.out.println("House busts, you Win with " + money);
-							System.exit(0);
-
-							if (dealer.getHand().getHandValue() > 17 && dealerTotal > playerTotal && dealer.getHand().getHandValue() >= 21) {
-								System.out.println("House Wins! You lose " + money);
-								System.exit(0);
-								
-								if (dealer.getHand().getHandValue() >= 17) {
-									winCheck(bj);
-									break;
-								}
-							}
-						}
-					}
-				}
+		
 			}
 		}
 	}
 
 	public void winCheck(Blackjack bj) {
 
-		if (dealer.getHand().getHandValue() > 17 && dealer.getHand().getHandValue() > player.getHand().getHandValue()) {
+		if (dealer.getHand().getHandValue() > 17 && dealer.getHand().getHandValue() <= 21 && dealer.getHand().getHandValue() > player.getHand().getHandValue()) {
 			System.out.println("House Wins!");
 			System.exit(0);
 		}
@@ -126,6 +106,28 @@ public class Blackjack {
 			System.out.println("You and the Dealer tied. This hand was a wash because I'm not at the next step of code yet, sorry!");
 			System.exit(0);
 		}
+		if (dealer.getHand().getHandValue() > player.getHand().getHandValue()) {
+			System.out.println("House wins, you lose");
+			System.exit(0);
+		}
+		if (player.getHand().getHandValue() > dealer.getHand().getHandValue() && dealer.getHand().getHandValue() > 17) {
+			System.out.println("You Win");
+			System.exit(0);
+		}
+		if (dealer.getHand().getHandValue() > 21) {
+			System.out.println("Dealer busts, You Win");
+			System.exit(0);
+		}
+		if (dealer.getHand().getHandValue() == 21) {
+			System.out.println("Dealer has Blackjack, you lose");
+			System.exit(0);
+		}
+		if (player.getHand().getHandValue() == 21) {
+			System.out.println(bh.isBlackjack());
+		}
+		
+		
+		
 
 	}
 
