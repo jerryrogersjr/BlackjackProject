@@ -87,14 +87,14 @@ public class Blackjack {
 				System.out.println();
 				winCheck(bj);
 
-		
 			}
 		}
 	}
 
 	public void winCheck(Blackjack bj) {
 
-		if (dealer.getHand().getHandValue() > 17 && dealer.getHand().getHandValue() <= 21 && dealer.getHand().getHandValue() > player.getHand().getHandValue()) {
+		if (dealer.getHand().getHandValue() > 17 && dealer.getHand().getHandValue() <= 21
+				&& dealer.getHand().getHandValue() > player.getHand().getHandValue()) {
 			System.out.println("House Wins!");
 			System.exit(0);
 		}
@@ -103,7 +103,8 @@ public class Blackjack {
 			System.exit(0);
 		}
 		if (dealer.getHand().getHandValue() == player.getHand().getHandValue()) {
-			System.out.println("You and the Dealer tied. This hand was a wash because I'm not at the next step of code yet, sorry!");
+			System.out.println(
+					"You and the Dealer tied. This hand was a wash because I'm not at the next step of code yet, sorry!");
 			System.exit(0);
 		}
 		if (dealer.getHand().getHandValue() > player.getHand().getHandValue()) {
@@ -125,9 +126,6 @@ public class Blackjack {
 		if (player.getHand().getHandValue() == 21) {
 			System.out.println(bh.isBlackjack());
 		}
-		
-		
-		
 
 	}
 
@@ -141,7 +139,7 @@ public class Blackjack {
 			if (player.getHand().getHandValue() == 21) {
 				System.out.println();
 				System.out.println(bh.isBlackjack());
-				
+
 			}
 			System.out.println("Do you want to hit? (y or n)");
 			String hitResponse = kb.next();
@@ -155,7 +153,7 @@ public class Blackjack {
 			}
 		}
 	}
-
+	// playAgain for scaling up
 	public void playAgain(Blackjack bj) {
 		System.out.println("You have: $ " + money);
 		if (money == 0) {
