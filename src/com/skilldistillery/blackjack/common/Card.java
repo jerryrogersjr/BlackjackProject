@@ -19,14 +19,6 @@ public class Card {
 public String toString() {
 	return rank + " of " + suit;
 }
-	
-//	public String toString() {
-//		StringBuilder builder = new StringBuilder();
-//		builder.append(rank);
-//		builder.append(" of ");
-//		builder.append(suit);
-//		return builder.toString();
-//	}
 
 	public boolean isAce() {
 		// TODO Auto-generated method stub

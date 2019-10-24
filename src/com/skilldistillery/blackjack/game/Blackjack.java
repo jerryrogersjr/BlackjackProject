@@ -98,10 +98,10 @@ public class Blackjack {
 			System.out.println("You Win");
 			System.exit(0);
 		}
-		if (dealer.getHand().getHandValue() == player.getHand().getHandValue()) {
-			System.out.println("You and the Dealer tied. PUSH!");
-			System.exit(0);
-		}
+//		if (dealer.getHand().getHandValue() == player.getHand().getHandValue()) {
+//			System.out.println("You and the Dealer tied. PUSH!");
+//			System.exit(0);
+//		}
 		if (dealer.getHand().getHandValue() > player.getHand().getHandValue()) {
 			System.out.println("House wins, you lose");
 			System.exit(0);
