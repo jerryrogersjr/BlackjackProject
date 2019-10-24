@@ -26,16 +26,11 @@ public class Deck {
 		}
 		return deck;
 	}
-	public void setCards(List<Card> cards) {
-		this.cards = cards;
-	}
 
-	public List<Card> getCards() {
-		return cards;
-	}
-
-	public int cardsLeftInDeck() { // what is the difference between this and deck size??
-		return cards.size();
+	public void resetDeck() {
+		cards.removeAll(cards);
+		createDeck();
+		shuffle();
 	}
 
 	public int checkDeckSize() {
@@ -47,7 +42,6 @@ public class Deck {
 	}
 
 	public Card dealCard() {
-
 		return cards.remove(0);
 
 	}

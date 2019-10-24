@@ -8,8 +8,6 @@ public class Blackjack {
 	public static final int INITIAL_MONEY = 100; // fixed amount
 	private static int money = INITIAL_MONEY;
 	public static Scanner kb = new Scanner(System.in);
-//	List<Card> dealersHand = new ArrayList<>();
-//	List<Card> playersHand = new ArrayList<>();
 	Deck deck = new Deck();
 	Dealer dealer = new Dealer();
 	Player player = new Player();
@@ -20,7 +18,8 @@ public class Blackjack {
 		bj.launchGame(bj);
 	}
 
-	public void launchGame(Blackjack bj) {
+	private void launchGame(Blackjack bj) {
+
 		System.out.println("Welcome to Blackjack\n");
 		System.out.println("You have: $ " + money);
 		bj.betAmount();
@@ -33,9 +32,7 @@ public class Blackjack {
 		System.out.println(player.getHand().getHandValue());
 		System.out.println();
 
-		if (playerTotal == 21) {
-			bh.isBlackjack();
-		}
+		winCheck(bj);
 
 		System.out.println("Dealer Showing ");
 		System.out.println(dealer.getHand());
@@ -46,12 +43,9 @@ public class Blackjack {
 
 	}
 
-	int playerTotal = player.getHand().getHandValue();
+	private void player(Blackjack bj) {
 
-	public void player(Blackjack bj) {
-
-		// need to work on money minus bet, etc.
-		while (playerTotal < 21) {
+		while (player.getHand().getHandValue() < 21) {
 			System.out.println();
 			System.out.println("You have a total of $ " + money);
 			System.out.println("You have: " + player.getHand().getHandValue() + " " + player.getHand());
@@ -64,19 +58,14 @@ public class Blackjack {
 			}
 			if (hitResponse.indexOf("Y") == 0 || hitResponse.indexOf("y") == 0) {
 				player.addCard(dealer.dealerDeck.dealCard());
-				if (player.getHand().getHandValue() == 21) {
-					bh.isBlackjack();
-				}
+				winCheck(bj);
 				bj.hit(kb, bj);
 
 			}
 		}
 	}
 
-	int dealerTotal = dealer.getHand().getHandValue();
-
-	public void dealer(Blackjack bj) {
-//		while (dealerTotal < 17 && playerTotal < 21) {
+	private void dealer(Blackjack bj) {
 		while (true) {
 			if (dealer.getHand().getHandValue() < 17) {
 
@@ -91,7 +80,14 @@ public class Blackjack {
 		}
 	}
 
-	public void winCheck(Blackjack bj) {
+	private void winCheck(Blackjack bj) {
+		bh.isBlackjack();
+		bh.isBust();
+		
+		if (dealer.getHand().getHandValue() > 21) {
+			System.out.println("Dealer busts, You Win");
+			System.exit(0);
+		}
 
 		if (dealer.getHand().getHandValue() > 17 && dealer.getHand().getHandValue() <= 21
 				&& dealer.getHand().getHandValue() > player.getHand().getHandValue()) {
@@ -103,8 +99,7 @@ public class Blackjack {
 			System.exit(0);
 		}
 		if (dealer.getHand().getHandValue() == player.getHand().getHandValue()) {
-			System.out.println(
-					"You and the Dealer tied. This hand was a wash because I'm not at the next step of code yet, sorry!");
+			System.out.println("You and the Dealer tied. PUSH!");
 			System.exit(0);
 		}
 		if (dealer.getHand().getHandValue() > player.getHand().getHandValue()) {
@@ -115,21 +110,17 @@ public class Blackjack {
 			System.out.println("You Win");
 			System.exit(0);
 		}
-		if (dealer.getHand().getHandValue() > 21) {
-			System.out.println("Dealer busts, You Win");
-			System.exit(0);
-		}
-		if (dealer.getHand().getHandValue() == 21) {
-			System.out.println("Dealer has Blackjack, you lose");
-			System.exit(0);
-		}
-		if (player.getHand().getHandValue() == 21) {
-			System.out.println(bh.isBlackjack());
-		}
+//		if (dealer.getHand().getHandValue() == 21) {
+//			System.out.println("Dealer has Blackjack, you lose");
+//			System.exit(0);
+//		}
+//		if (player.getHand().getHandValue() == 21) {
+//			System.out.println(bh.isBlackjack());
+//		}
 
 	}
 
-	public void hit(Scanner kb, Blackjack bj) {
+	private void hit(Scanner kb, Blackjack bj) {
 
 		System.out.println();
 		System.out.println("You have: " + player.getHand().getHandValue() + " " + player.getHand());
@@ -139,7 +130,6 @@ public class Blackjack {
 			if (player.getHand().getHandValue() == 21) {
 				System.out.println();
 				System.out.println(bh.isBlackjack());
-
 			}
 			System.out.println("Do you want to hit? (y or n)");
 			String hitResponse = kb.next();
@@ -153,8 +143,10 @@ public class Blackjack {
 			}
 		}
 	}
+
 	// playAgain for scaling up
-	public void playAgain(Blackjack bj) {
+	// Need to reset deck for this to be functional...
+	protected void playAgain(Blackjack bj) {
 		System.out.println("You have: $ " + money);
 		if (money == 0) {
 			System.out.println("You're out of cash. House wins");
@@ -163,6 +155,8 @@ public class Blackjack {
 		System.out.println("Would you like to play again?");
 		String response2 = kb.next();
 		if (response2.indexOf("Y") == 0 || response2.indexOf("y") == 0) {
+			bh.clearHand(); // Trying to clear hand on playAgain
+			deck.resetDeck();
 			bj.launchGame(bj);
 		} else if (response2.indexOf("N") == 0 || response2.indexOf("n") == 0) {
 			System.out.println("Goodbye");
@@ -179,9 +173,8 @@ public class Blackjack {
 
 	}
 
-	public int betAmount() {
+	private int betAmount() {
 		System.out.println("How much do you want to bet?");
-//		int bet = Math.abs(kb.nextInt());
 		int bet = kb.nextInt();
 
 		while (bet > money || bet < 10) {

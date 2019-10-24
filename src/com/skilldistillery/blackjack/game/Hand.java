@@ -9,17 +9,7 @@ public abstract class Hand {
 
 	protected List<Card> cards = new ArrayList<Card>();
 
-	public Hand() {
-		super();
-	}
-
-	public int getHandValue() {
-		int value = 0;
-		for (Card card : cards) {
-			value += card.getValue();
-		}
-		return value;
-	}
+	public abstract int getHandValue();
 
 	public void addCard(Card card) {
 		this.cards.add(card);
@@ -31,15 +21,6 @@ public abstract class Hand {
 
 	public String toString() {
 		return "hand " + cards;
-	}
-
-	public List<Card> getCards() {
-		return cards;
-
-	}
-
-	public void setCards(List<Card> cards) {
-		this.cards = cards;
 	}
 
 }
