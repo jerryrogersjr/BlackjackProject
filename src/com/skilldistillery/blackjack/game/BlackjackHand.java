@@ -12,20 +12,19 @@ public class BlackjackHand extends Hand {
 		return value;
 	}
 
-	public boolean isBlackjack() {
-		if (getHandValue() == 21) {
+	public boolean isBlackjack(Player player) {
+		if (player.getHand().getHandValue() == 21) {
 			System.out.println("********** BLACKJACK!!!! **********");
-			return true;
-		} else
-			return false;
+		} 
+		return true;
 	}
 
-	public boolean isBust() {
-		if (getHandValue() > 21) {
+	public boolean isBust(Player player) {
+		if (player.getHand().getHandValue() > 21) {
 			System.out.println("********** BUSTED BUSTER **********");
-			return true;
-		} else
-			return false;
+			System.out.println(player.getHand().getHandValue() + " " + player.getHand());
+		}
+		return true;
 	}
 
 }
