@@ -11,16 +11,16 @@ public abstract class Hand {
 
 	public abstract int getHandValue();
 
-	public void addCard(Card card) {
+	protected void addCard(Card card) {
 		this.cards.add(card);
 	}
 
-	public void clearHand() {
+	protected void clearHand() {
 		cards.clear();
 	}
 
 	public String toString() {
-		return "cards " + cards;
+		return "with cards " + cards;
 	}
 
 }

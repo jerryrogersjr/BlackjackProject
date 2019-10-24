@@ -3,7 +3,7 @@ package com.skilldistillery.blackjack.game;
 import com.skilldistillery.blackjack.common.Card;
 
 public class BlackjackHand extends Hand {
-
+	
 	public int getHandValue() {
 		int value = 0;
 		for (Card card : cards) {

@@ -26,14 +26,12 @@ public class Deck {
 		}
 		return deck;
 	}
-
+	
 	public void resetDeck() {
-		cards.removeAll(cards);
-		createDeck();
-		shuffle();
+		cards.clear();
 	}
 
-	public int checkDeckSize() {
+	protected int checkDeckSize() {
 		return cards.size();
 	}
 
