@@ -8,6 +8,7 @@ public class Blackjack {
 	public static final int INITIAL_MONEY = 100; // fixed amount
 	private static int money = INITIAL_MONEY;
 	public static Scanner kb = new Scanner(System.in);
+	
 	Deck deck = new Deck();
 	Dealer dealer = new Dealer();
 	Player player = new Player();
