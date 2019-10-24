@@ -14,8 +14,8 @@ public class Dealer extends Player {
 		return dealerDeck;
 	}
 
-	protected void setDeck(Deck deck) {
-		deck = dealerDeck;
-	}
+//	protected void setDeck(Deck deck) {
+//		deck = dealerDeck;
+//	}
 
 }

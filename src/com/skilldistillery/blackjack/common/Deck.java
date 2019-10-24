@@ -26,7 +26,7 @@ public class Deck {
 		}
 		return deck;
 	}
-	
+
 	public void resetDeck() {
 		cards.clear();
 	}

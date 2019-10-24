@@ -45,17 +45,20 @@ public class Blackjack {
 		while (player.getHand().getHandValue() < 21) {
 			System.out.println();
 			player.getHand().getHandValue();
+
 			winCheck(bj);
 
 			System.out.println("Do you want to hit? (y or n)");
 			String hitResponse = kb.next();
 
 			if (hitResponse.indexOf("N") == 0 || hitResponse.indexOf("n") == 0) {
+
 				winCheck(bj);
 				dealer(bj);
 			}
 			if (hitResponse.indexOf("Y") == 0 || hitResponse.indexOf("y") == 0) {
 				player.addCard(dealer.dealerDeck.dealCard());
+
 				winCheck(bj);
 				bj.hit(kb, bj);
 			}
@@ -69,6 +72,7 @@ public class Blackjack {
 				dealer.addCard(dealer.dealerDeck.dealCard());
 				System.out.println("Dealer now has " + dealer.getHand().getHandValue() + " with " + dealer.getHand());
 				System.out.println();
+
 				winCheck(bj);
 
 			}
@@ -76,6 +80,9 @@ public class Blackjack {
 	}
 
 	private void winCheck(Blackjack bj) {
+
+		bh.isBlackjack();
+		bh.isBust();
 
 		if (dealer.getHand().getHandValue() > 21) {
 			System.out.println("Dealer busts, You Win");
@@ -108,10 +115,6 @@ public class Blackjack {
 			System.exit(0);
 		}
 
-		bh.isBlackjack();
-
-		bh.isBust();
-
 	}
 
 	private void hit(Scanner kb, Blackjack bj) {
@@ -135,24 +138,26 @@ public class Blackjack {
 	// playAgain needs work on money issue
 	// Need to reset deck for this to be functional...
 	protected void playAgain(Blackjack bj) {
-//		System.out.println("You have: $ " + money);
-//		if (money == 0) {
-//			System.out.println("You're out of cash. House wins");
-//			System.exit(0);
-//		}
+		System.out.println("You have: $ " + money);
+
+		if (money == 0) {
+			System.out.println("You're out of cash. House wins");
+			System.exit(0);
+		}
+
 		System.out.println("Would you like to play again?");
 		String response2 = kb.next();
+
 		if (response2.indexOf("Y") == 0 || response2.indexOf("y") == 0) {
-			deck.resetDeck(); // not working 
 			bj.launchGame(bj);
 		} else if (response2.indexOf("N") == 0 || response2.indexOf("n") == 0) {
 			System.out.println("Goodbye");
-//			if (money > 100) {
-//				System.out.println("You've won $ " + (money - 100));
-//			} else {
-//				System.out.println("You lost a total of $ " + (100 - money));
+			if (money > 100) {
+				System.out.println("You've won $ " + (money - 100));
+			} else {
+				System.out.println("You lost a total of $ " + (100 - money));
 				System.exit(0);
-//			}
+			}
 		} else {
 			System.err.println("Wrong Input, Try Again");
 			System.exit(0);
