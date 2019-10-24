@@ -43,7 +43,6 @@ public class Deck {
 
 	public Card dealCard() {
 		return cards.remove(0);
-
 	}
 
 }

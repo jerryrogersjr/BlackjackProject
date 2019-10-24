@@ -20,7 +20,7 @@ public abstract class Hand {
 	}
 
 	public String toString() {
-		return "hand " + cards;
+		return "cards " + cards;
 	}
 
 }

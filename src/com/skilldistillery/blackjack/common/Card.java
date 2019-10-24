@@ -7,39 +7,31 @@ public class Card {
 	public Card(Rank rank, Suit suit) {
 		this.rank = rank;
 		this.suit = suit;
-		toString();
 	}
 
 	public int getValue() {
 		return rank.getValue();
 	}
-	
 
-@Override
-public String toString() {
-	return rank + " of " + suit;
-}
-
-	public boolean isAce() {
-		// TODO Auto-generated method stub
-		return rank.ACE != null;
+	public String toString() {
+		return rank + " of " + suit;
 	}
 
 	public Rank getRank() {
 		return rank;
 	}
 
-	public void setRank(Rank rank) {
-		this.rank = rank;
-	}
+//	public void setRank(Rank rank) {
+//		this.rank = rank;
+//	}
 
 	public Suit getSuit() {
 		return suit;
 	}
 
-	public void setSuit(Suit suit) {
-		this.suit = suit;
-	}
+//	public void setSuit(Suit suit) {
+//		this.suit = suit;
+//	}
 
 	public int hashCode() {
 		final int prime = 31;
@@ -63,6 +55,6 @@ public String toString() {
 			return false;
 		return true;
 
-}
+	}
 
 }

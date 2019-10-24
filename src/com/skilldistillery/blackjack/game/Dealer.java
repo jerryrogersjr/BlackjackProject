@@ -6,7 +6,7 @@ public class Dealer extends Player {
 
 	Deck dealerDeck = new Deck();
 
-	public void Shuffle() {
+	protected void Shuffle() {
 		dealerDeck.shuffle();
 	}
 
@@ -14,7 +14,7 @@ public class Dealer extends Player {
 		return dealerDeck;
 	}
 
-	public void setDeck(Deck deck) {
+	protected void setDeck(Deck deck) {
 		deck = dealerDeck;
 	}
 

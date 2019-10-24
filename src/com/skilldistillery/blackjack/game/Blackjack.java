@@ -31,13 +31,14 @@ public class Blackjack {
 		System.out.println(player.getHand());
 		System.out.println(player.getHand().getHandValue());
 		System.out.println();
+		bh.isBlackjack();
+		bh.isBust();
+		winCheck();
 
-		winCheck(bj);
-
-		System.out.println("Dealer Showing ");
-		System.out.println(dealer.getHand());
-		dealer.addCard(dealer.dealerDeck.dealCard());
-		System.out.println();
+//		System.out.println("Dealer Showing ");
+//		System.out.println(dealer.getHand());
+//		dealer.addCard(dealer.dealerDeck.dealCard());
+//		System.out.println();
 
 		bj.player(bj);
 
@@ -47,10 +48,8 @@ public class Blackjack {
 
 		while (player.getHand().getHandValue() < 21) {
 			System.out.println();
-			System.out.println("You have a total of $ " + money);
-			System.out.println("You have: " + player.getHand().getHandValue() + " " + player.getHand());
 			player.getHand().getHandValue();
-			winCheck(bj);
+			winCheck();
 			System.out.println("Do you want to hit? (y or n)");
 			String hitResponse = kb.next();
 			if (hitResponse.indexOf("N") == 0 || hitResponse.indexOf("n") == 0) {
@@ -58,7 +57,7 @@ public class Blackjack {
 			}
 			if (hitResponse.indexOf("Y") == 0 || hitResponse.indexOf("y") == 0) {
 				player.addCard(dealer.dealerDeck.dealCard());
-				winCheck(bj);
+				winCheck();
 				bj.hit(kb, bj);
 
 			}
@@ -68,56 +67,47 @@ public class Blackjack {
 	private void dealer(Blackjack bj) {
 		while (true) {
 			if (dealer.getHand().getHandValue() < 17) {
-
-				System.out.println("Dealer showing " + dealer.getHand());
+//				System.out.println("Dealer showing a " + dealer.getHand());
 				dealer.addCard(dealer.dealerDeck.dealCard());
+//				System.out.println();
+				System.out.println("Dealer now has " + dealer.getHand().getHandValue() + " with " + dealer.getHand());
 				System.out.println();
-				System.out.println("Dealer now has " + dealer.getHand().getHandValue() + " " + dealer.getHand());
-				System.out.println();
-				winCheck(bj);
+				winCheck();
 
 			}
 		}
 	}
 
-	private void winCheck(Blackjack bj) {
-		bh.isBlackjack();
-		bh.isBust();
+	private void winCheck() {
 		
 		if (dealer.getHand().getHandValue() > 21) {
 			System.out.println("Dealer busts, You Win");
 			System.exit(0);
 		}
 
-		if (dealer.getHand().getHandValue() > 17 && dealer.getHand().getHandValue() <= 21
+		if (dealer.getHand().getHandValue() >= 17 && dealer.getHand().getHandValue() <= 21
 				&& dealer.getHand().getHandValue() > player.getHand().getHandValue()) {
 			System.out.println("House Wins!");
 			System.exit(0);
 		}
-		if (dealer.getHand().getHandValue() > 17 && dealer.getHand().getHandValue() < player.getHand().getHandValue()) {
+		if (dealer.getHand().getHandValue() >= 17 && dealer.getHand().getHandValue() < player.getHand().getHandValue()) {
 			System.out.println("You Win");
 			System.exit(0);
 		}
-//		if (dealer.getHand().getHandValue() == player.getHand().getHandValue()) {
-//			System.out.println("You and the Dealer tied. PUSH!");
-//			System.exit(0);
-//		}
+		if (dealer.getHand().getHandValue() == player.getHand().getHandValue()) {
+			System.out.println("You and the Dealer tied. PUSH!");
+			System.exit(0);
+		}
 		if (dealer.getHand().getHandValue() > player.getHand().getHandValue()) {
 			System.out.println("House wins, you lose");
 			System.exit(0);
 		}
-		if (player.getHand().getHandValue() > dealer.getHand().getHandValue() && dealer.getHand().getHandValue() > 17) {
+		if (player.getHand().getHandValue() > dealer.getHand().getHandValue() && dealer.getHand().getHandValue() >= 17) {
 			System.out.println("You Win");
 			System.exit(0);
 		}
-//		if (dealer.getHand().getHandValue() == 21) {
-//			System.out.println("Dealer has Blackjack, you lose");
-//			System.exit(0);
-//		}
-//		if (player.getHand().getHandValue() == 21) {
-//			System.out.println(bh.isBlackjack());
-//		}
-
+		bh.isBlackjack();
+		bh.isBust();
 	}
 
 	private void hit(Scanner kb, Blackjack bj) {
@@ -136,7 +126,7 @@ public class Blackjack {
 
 			if (hitResponse.indexOf("Y") == 0 || hitResponse.indexOf("y") == 0) {
 				player.addCard(dealer.dealerDeck.dealCard());
-				winCheck(bj);
+				winCheck();
 				bj.player(bj);
 			} else if (hitResponse.indexOf("N") == 0 || hitResponse.indexOf("n") == 0) {
 				dealer(bj);

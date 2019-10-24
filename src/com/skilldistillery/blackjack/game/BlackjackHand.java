@@ -1,7 +1,5 @@
 package com.skilldistillery.blackjack.game;
 
-import java.util.List;
-
 import com.skilldistillery.blackjack.common.Card;
 
 public class BlackjackHand extends Hand {
@@ -15,11 +13,9 @@ public class BlackjackHand extends Hand {
 	}
 
 	public boolean isBlackjack() {
-		if(getHandValue() == 21) {
-		System.out.println("********** BLACKJACK!!!! **********");
-		System.out.println();
+		if (getHandValue() == 21) {
+			System.out.println("********** BLACKJACK!!!! **********");
 		}
-
 		return true;
 	}
 
