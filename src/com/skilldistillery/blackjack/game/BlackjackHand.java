@@ -14,15 +14,16 @@ public class BlackjackHand extends Hand {
 
 	public boolean isBlackjack(Player player) {
 		if (player.getHand().getHandValue() == 21) {
-			System.out.println("********** BLACKJACK!!!! **********");
+			System.out.println(player.getHand().getHandValue() + " " + player.getHand() + "\n");
+			System.out.println("********** BLACKJACK!!!! **********\n");
 		} 
 		return true;
 	}
 
 	public boolean isBust(Player player) {
 		if (player.getHand().getHandValue() > 21) {
+			System.out.println(player.getHand().getHandValue() + " " + player.getHand() + "\n");
 			System.out.println("********** BUSTED BUSTER **********");
-			System.out.println(player.getHand().getHandValue() + " " + player.getHand());
 		}
 		return true;
 	}
