@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 import com.skilldistillery.blackjack.common.Deck;
 
-public class Blackjack {
+public class BlackjackApp {
 	public static final int INITIAL_MONEY = 100; // fixed amount
 	private static int money = INITIAL_MONEY;
 	public static Scanner kb = new Scanner(System.in);
@@ -15,11 +15,11 @@ public class Blackjack {
 	BlackjackHand bh = new BlackjackHand();
 
 	public static void main(String[] args) {
-		Blackjack bj = new Blackjack();
+		BlackjackApp bj = new BlackjackApp();
 		bj.launchGame(bj);
 	}
 
-	private void launchGame(Blackjack bj) {
+	private void launchGame(BlackjackApp bj) {
 
 		System.out.println("Welcome to Blackjack\n");
 		System.out.println("You have: $ " + money);
@@ -41,7 +41,7 @@ public class Blackjack {
 
 	}
 
-	private void player(Blackjack bj) {
+	private void player(BlackjackApp bj) {
 
 		while (player.getHand().getHandValue() < 21) {
 			System.out.println();
@@ -52,7 +52,7 @@ public class Blackjack {
 		}
 	}
 
-	private void dealer(Blackjack bj) {
+	private void dealer(BlackjackApp bj) {
 		while (true) {
 
 			if (dealer.getHand().getHandValue() < 17) {
@@ -65,7 +65,7 @@ public class Blackjack {
 		}
 	}
 
-	private void winCheck(Blackjack bj) {
+	private void winCheck(BlackjackApp bj) {
 
 		if (dealer.getHand().getHandValue() > 21) {
 			System.out.println("Dealer busts, You Win");
@@ -116,7 +116,7 @@ public class Blackjack {
 
 	}
 
-	private void hit(Scanner kb, Blackjack bj) {
+	private void hit(Scanner kb, BlackjackApp bj) {
 
 		System.out.println();
 		System.out.println("You have: " + player.getHand().getHandValue() + " " + player.getHand());
@@ -135,6 +135,24 @@ public class Blackjack {
 		}
 	}
 
+	private int betAmount() {
+		System.out.println("How much do you want to bet?");
+		int bet = kb.nextInt();
+		
+		while (bet > money || bet < 10) {
+			if (bet < 10) {
+				System.out.println("The minimum bet is $10");
+				System.out.println("Thats not enough money");
+			}
+			
+			else {
+				System.out.println("You don't have that much money");
+			}
+			System.out.println("How much would you like to bet");
+			bet = kb.nextInt();
+		}
+		return bet;
+	}
 	// playAgain needs work on money issue
 	// Need to reset deck for this to be functional...
 //	protected void playAgain(Blackjack bj) {
@@ -165,23 +183,5 @@ public class Blackjack {
 //
 //	}
 
-	private int betAmount() {
-		System.out.println("How much do you want to bet?");
-		int bet = kb.nextInt();
-
-		while (bet > money || bet < 10) {
-			if (bet < 10) {
-				System.out.println("The minimum bet is $10");
-				System.out.println("Thats not enough money");
-			}
-
-			else {
-				System.out.println("You don't have that much money");
-			}
-			System.out.println("How much would you like to bet");
-			bet = kb.nextInt();
-		}
-		return bet;
-	}
 
 }
