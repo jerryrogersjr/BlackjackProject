@@ -8,6 +8,7 @@ import com.skilldistillery.blackjack.common.Card;
 public abstract class Hand {
 
 	protected List<Card> cards = new ArrayList<Card>();
+	
 
 	public abstract int getHandValue();
 

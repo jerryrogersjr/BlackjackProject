@@ -46,7 +46,6 @@ public class BlackjackApp {
 		while (player.getHand().getHandValue() < 21) {
 			System.out.println();
 			player.getHand().getHandValue();
-
 			winCheck(bj);
 			bj.hit(kb, bj);
 		}
@@ -66,6 +65,9 @@ public class BlackjackApp {
 	}
 
 	private void winCheck(BlackjackApp bj) {
+		
+//		bh.isBlackjack(player);
+//		bh.isBust(player);
 
 		if (dealer.getHand().getHandValue() > 21) {
 			System.out.println("Dealer busts, You Win");
@@ -106,12 +108,20 @@ public class BlackjackApp {
 			System.exit(0);
 		}
 
-		else if (!bh.isBust(player)) {
-			bj.hit(kb, bj);
+//		else if (!bh.isBust(player)) { // this was the false compensation for the boolean. 
+//			bj.hit(kb, bj);
+//		}
+//
+//		else if (!bh.isBlackjack(player)) { // this was the false compensation for the boolean.
+//			bj.hit(kb, bj);
+//		}
+		
+		else if (bh.isBlackjack(player)) {
+			System.exit(0);
 		}
-
-		else if (!bh.isBlackjack(player)) {
-			bj.hit(kb, bj);
+		
+		else if (bh.isBust(player)) {
+			System.exit(0);
 		}
 
 	}
@@ -138,13 +148,13 @@ public class BlackjackApp {
 	private int betAmount() {
 		System.out.println("How much do you want to bet?");
 		int bet = kb.nextInt();
-		
+
 		while (bet > money || bet < 10) {
 			if (bet < 10) {
 				System.out.println("The minimum bet is $10");
 				System.out.println("Thats not enough money");
 			}
-			
+
 			else {
 				System.out.println("You don't have that much money");
 			}
@@ -182,6 +192,5 @@ public class BlackjackApp {
 //		}
 //
 //	}
-
 
 }
